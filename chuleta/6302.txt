@@ -1,0 +1,28 @@
+SA 6302 Field- Instances Description necessary Condition
+Changes label 1 2 3 4 Field Contents M/K Prerequisites
+
+8000 1 Sentence ID M New Data Request Set Type
+8100 1 Sentence Length M Length of this Sentence
+8315 1 Receiver GDT - ID K
+8316 1 Sender GDT - ID K
+9206 1 Set Type used K 1=7Bit, 2=IBM(Standard) CP 437, 3=ISO8859-1(ANSI) CP 1252
+9218 1 Version GDT M 02.10
+0102 1 The resposible one for the software K e.g. firm
+0103 1 Software K Name of software
+0132 1 Release state of software K Software versionnumber
+3000 1 Patient Number / Patient Label M
+3100 1 Prefix / Additional Name of Patient K e.g. Lord
+3101 1 Name of Patient M
+3102 1 Patient First Name M
+3103 1 Patient Birth Date M DDMMYYYY
+3104 1 Patient Title K
+3105 1 Patient Insurance Number K
+3106 1 Patient Residence K Zip Code
+3107 1 Patient Street K Street and Number
+3108 1 Insurance Status K 1=Member, 3=Family Member of Insured, 5=Retired
+3110 1 Patient Sex K 1=Male, 2=female
+3622 1 Patient Height K
+3623 1 Patient Weight K
+3628 1 First Language of Patient K
+8402 1 Device and method specific field K Requested Test Type, e.g.. EKG01
+8410 1 Test-ID K Requested Type eg. EKG01

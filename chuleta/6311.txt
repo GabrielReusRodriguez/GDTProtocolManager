@@ -1,0 +1,20 @@
+8000 1 Sentence ID M Test Data Display Set Type
+8100 1 Sentence Length M Length of this Sentence
+8315 1 Reciever GDT ID K
+8316 1 Sender GDT ID K
+9206 1 Set Type used K 1=7Bit, 2=IBM(Standard) CP 437, 3=ISO8859-1(ANSI) CP 1252
+9218 1 Version GDT M 02.10
+3000 1 Patient Number/Patient Label M If a DEVICE cannot transmit the patient number, a value of 0
+should be sent in order to request patient data of the current
+patient.
+3100 1 Prefix/ Additional Name of Patient K e.g. Lord
+3101 1 Patient Name K
+3102 1 Patient First Name K
+3103 1 Patient Birth Date K DDMMYYYY
+3104 1 Patient Title K
+6200 1 Day Treatment Data were saved K DDMMYYYY Date of Test to be displayed
+6201 1 Time Treatment Data were saved K HHMMSS; time (6 digits) of indicated test
+8402 1 Device and Method specific field K Type of Test to be displayed for example ERGO00
+(see App. B)
+8432 1 Reading Date K DDMMYYYY ; Date of Single Reading
+8439 1 Reading Time K HHMMSS ; HHMMSS ; Time (6 digits) of Single Reading
