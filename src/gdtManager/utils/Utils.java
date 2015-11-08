@@ -1,4 +1,6 @@
-package csi.int033.utils;
+package gdtManager.utils;
+
+import gdtManager.exceptions.GDTException;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -8,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,7 +44,7 @@ import org.xml.sax.SAXException;
  * @version 1.2 - ksim - March 10th, 2007 - Added functions regarding DOM
  *          manipulation
  */
-public class Utils {
+public abstract class Utils {
 	public static Document newDocumentFromInputStream(InputStream in) {
 		DocumentBuilderFactory factory = null;
 		DocumentBuilder builder = null;
@@ -65,7 +68,7 @@ public class Utils {
 	}
 
 	public static String newStringFromInputStream(InputStream is)
-			throws PoligrafoException {
+			throws GDTException {
 
 		if (is != null) {
 			Writer writer = new StringWriter();
@@ -79,9 +82,9 @@ public class Utils {
 				}
 				is.close();
 				return writer.toString();
-				
+
 			} catch (IOException e) {
-				throw new PoligrafoException(e.getMessage());
+				throw new GDTException(e.getMessage());
 			}
 		} else {
 			return "";
@@ -89,17 +92,19 @@ public class Utils {
 
 	}
 
-	/*
-	 * 
-	 * if (is != null) { Writer writer = new StringWriter();
-	 * 
-	 * char[] buffer = new char[1024];
-	 * 
-	 * try { Reader reader = new BufferedReader(new InputStreamReader(is)); int
-	 * n; while ((n = reader.read(buffer)) != -1) { writer.write(buffer, 0, n);
-	 * }
-	 * 
-	 * } finally { is.close(); } return writer.toString(); } else { return ""; }
-	 */
+	public static InputStream InputStreamFromString(String inputString) {
 
+		InputStream inputStream = null;
+		inputStream = new ByteArrayInputStream(inputString.getBytes());
+		// InputStream is = new
+		// ByteArrayInputStream(Charset.forName("UTF-16").encode(myString()).array());
+		return inputStream;
+	}
+
+	public static InputStream InputStreamFromString(String inputString,String encode) {
+
+		InputStream inputStream = null;
+		inputStream = new ByteArrayInputStream(Charset.forName(encode).encode(inputString).array());
+		return inputStream;
+	}
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package csi.int033.utils;
+package gdtManager.utils;
 
 /**
  * @author greusr

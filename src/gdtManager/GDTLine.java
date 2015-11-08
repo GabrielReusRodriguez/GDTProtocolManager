@@ -1,4 +1,4 @@
-package csi.int033;
+package gdtManager;
 
 public class GDTLine {
 
@@ -22,7 +22,7 @@ public class GDTLine {
 
 	public String toString() {
 		StringBuilder line=new StringBuilder();	
-		// Creo la línea
+		// Creo la lï¿½nea
 		line.append(String.format("%03d", size));
 		line.append(field);
 		line.append(value);
