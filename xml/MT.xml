@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<GDT xmlns="http://www.gdt.com">
+<payload>
+<line>
+<field>3801</field>
+<value>12345678910</value>
+</line>
+<line>
+<field>4810</field>
+<value>00053</value>
+</line>
+</payload>
+</GDT>

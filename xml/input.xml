@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GDT xmlns="http://www.gdt.com">
+	<payload>
+		<line>
+			<field>8010</field>
+			<value>1234</value>
+		</line>
+		<line>
+			<field>8010</field>
+			<value>567</value>
+		</line>
+		<line>
+			<field>8010</field>
+			<value>8910</value>
+		</line>
+	</payload>
+</GDT>
