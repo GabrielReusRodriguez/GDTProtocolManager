@@ -1,84 +1,36 @@
 package gdtManager;
 
-import gdtManager.exceptions.GDTException;
-import gdtManager.interfaces.TransformerOutputIf;
-
+import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
+
+import gdtManager.exceptions.GDTException;
 
 public class GDTProtocolManager {
 
-	protected List<GDTLine> lineas;
-	protected GDTLine msgSizeLine = null;
-
-	private TransformerOutputIf transformerOutput = null;
-
-	private String encode ="ISO-8859-1";
+	private GDTWritter gdtWritter = null;
+	private GDTReader gdtReader = null;
 	
-	private static final String MSG_SIZE_FORMAT = "%05d";
-
-	public GDTProtocolManager() {
-
-		lineas = new ArrayList<GDTLine>();
-	}
-
-	public GDTProtocolManager(TransformerOutputIf transformer) {
-
-		this.transformerOutput = transformer;
-		lineas = new ArrayList<GDTLine>();
+	
+	public GDTProtocolManager() throws GDTException {
+		gdtWritter = new GDTWritter();
+		gdtReader = new GDTReader();
 	}
 	
-	public GDTProtocolManager(TransformerOutputIf transformer,String encode) {
-
-		this.transformerOutput = transformer;
-		lineas = new ArrayList<GDTLine>();
-		this.encode = encode;
-	}
-
-	public void addPair(String field, String value) throws NullPointerException {
-
-		lineas.add(new GDTLine(field, value));
-	}
-
-	public void serialize(OutputStream outputStream) throws GDTException {
-		transformerOutput.execute(
-				this.toString(),
-				outputStream,
-				this.encode);
-	}
-
-	public String toString() {
-
-		StringBuilder strB = new StringBuilder();
-		setMsgSize();
-		for (GDTLine linea : lineas) {
-			strB.append(linea.toString());
-		}
-		return strB.toString();
-	}
-
-	private void setMsgSize() {
+	
+	public void xml2gdt(InputStream inputStream, OutputStream outputStream) throws GDTException {
 		
-		if (msgSizeLine == null){
-			msgSizeLine = new GDTLine("8100", String.format(MSG_SIZE_FORMAT, 0));
-			lineas.add(1, msgSizeLine);
-		}
-
-		StringBuilder strB = new StringBuilder();
-		for (GDTLine linea : lineas) {
-			strB.append(linea.toString());
-		}
-		int file_size = 0;
-		try {
-			file_size = strB.toString().getBytes(this.encode).length;
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-			file_size = strB.toString().getBytes().length;
-		}
-		msgSizeLine.setValue(String.format(MSG_SIZE_FORMAT, file_size));
-
+		gdtWritter.execute(inputStream, outputStream);
+		
 	}
+	
+	
+	public void gdt2xml( InputStream inputStream, OutputStream outputStream ) throws GDTException{
+		gdtReader.execute(inputStream, outputStream);
+	}
+	
+	
+	
 
+	
+	
 }

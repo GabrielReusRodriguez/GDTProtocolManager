@@ -1,9 +1,8 @@
 package gdtManager.interfaces;
 
-import gdtManager.exceptions.GDTException;
-
-import java.io.InputStream;
 import java.io.OutputStream;
+
+import gdtManager.exceptions.GDTException;
 
 public interface TransformerOutputIf {
 	

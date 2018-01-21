@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.gdt.com/"
+	xmlns:gdt="http://www.gdt.com/" elementFormDefault="qualified">
+
+	<complexType name="GDTLine">
+		<sequence>
+			<element name="field" type="string"/>
+			<element name="value" type="string"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="payload">
+		<sequence>
+			<element name="line" type="gdt:GDTLine" minOccurs="1" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="GDT">
+		<sequence>
+			<element name="payload" type="gdt:payload"/>
+		</sequence>
+	</complexType>
+
+
+
+</schema>
