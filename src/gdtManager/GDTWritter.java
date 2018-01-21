@@ -22,6 +22,7 @@ public class GDTWritter {
 	protected List<GDTLine> lineas;
 	protected GDTLine msgSizeLine = null;
 	private static XMLManager xmlManager = null;
+	
 
 	private TransformerOutputIf transformerOutput = null;
 
