@@ -21,40 +21,46 @@ public class GDTWritter {
 
 	protected List<GDTLine> lineas;
 	protected GDTLine msgSizeLine = null;
+	private static XMLManager xmlManager = null;
 
 	private TransformerOutputIf transformerOutput = null;
 
-	private String encode ="ISO-8859-1";
-	
+	private String encode = "ISO-8859-1";
+
 	private static final String MSG_SIZE_FORMAT = "%05d";
 
-	public GDTWritter() {
-		//lineas = new ArrayList<GDTLine>();
+	public GDTWritter() throws GDTException{
+		// lineas = new ArrayList<GDTLine>();
+		init();
 		transformerOutput = new TransformerOutputImpl();
 	}
 
-	public GDTWritter(TransformerOutputIf transformer) {
-
+	public GDTWritter(TransformerOutputIf transformer) throws GDTException{
+		init();
 		this.transformerOutput = transformer;
-		//lineas = new ArrayList<GDTLine>();
+		// lineas = new ArrayList<GDTLine>();
 	}
-	
-	public GDTWritter(TransformerOutputIf transformer,String encode) {
 
+	public GDTWritter(TransformerOutputIf transformer, String encode) throws GDTException{
+
+		init();
 		this.transformerOutput = transformer;
-		//lineas = new ArrayList<GDTLine>();
+		// lineas = new ArrayList<GDTLine>();
 		this.encode = encode;
 	}
 
-	
-	private void serialize(OutputStream outputStream) throws GDTException {
-		transformerOutput.execute(
-				this.makeString(),
-				outputStream,
-				this.encode);
+	private void init() throws GDTException{
+
+		if (xmlManager == null) {
+			xmlManager = new XMLManager();
+		}
 	}
 
-	private String makeString() throws GDTException{
+	private void serialize(OutputStream outputStream) throws GDTException {
+		transformerOutput.execute(this.makeString(), outputStream, this.encode);
+	}
+
+	private String makeString() throws GDTException {
 
 		StringBuilder strB = new StringBuilder();
 		setMsgSize();
@@ -64,11 +70,13 @@ public class GDTWritter {
 		return strB.toString();
 	}
 
-	private void setMsgSize() throws GDTException{
-		
-		if (msgSizeLine == null){
-			//msgSizeLine = new GDTLine("8100", String.format(MSG_SIZE_FORMAT, 0));
-			msgSizeLine = GDTLineFactory.buildGDTLine(ContentFields.GDT_FILE_SIZE.contentField(), String.format(MSG_SIZE_FORMAT, 0));//new GDTLine(ContentFields.GDT_FILE_SIZE.contentField(), String.format(MSG_SIZE_FORMAT, 0));
+	private void setMsgSize() throws GDTException {
+
+		if (msgSizeLine == null) {
+			// msgSizeLine = new GDTLine("8100", String.format(MSG_SIZE_FORMAT, 0));
+			msgSizeLine = GDTLineFactory.buildGDTLine(ContentFields.GDT_FILE_SIZE.contentField(),
+					String.format(MSG_SIZE_FORMAT, 0));// new GDTLine(ContentFields.GDT_FILE_SIZE.contentField(),
+														// String.format(MSG_SIZE_FORMAT, 0));
 			lineas.add(1, msgSizeLine);
 		}
 
@@ -86,26 +94,25 @@ public class GDTWritter {
 		msgSizeLine.setValue(String.format(MSG_SIZE_FORMAT, file_size));
 
 	}
-	
-	public void execute(InputStream is,OutputStream os) throws GDTException {
-		
-		//Obtengo el documento
-				Document xmlDoc = null;
-				XMLManager xmlManager = new XMLManager();
-				
-				xmlDoc = xmlManager.string2xmlDoc(is);
-				this.lineas = xmlManager.getGDTLines(xmlDoc);
-				this.serialize(os);
-		
+
+	public void execute(InputStream is, OutputStream os) throws GDTException {
+
+		// Obtengo el documento
+		Document xmlDoc = null;
+
+		xmlDoc = xmlManager.string2xmlDoc(is);
+		this.lineas = xmlManager.getGDTLines(xmlDoc);
+		this.serialize(os);
+
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		InputStream is = null;
 		OutputStream os = null;
-		
+
 		GDTProtocolManager gdtProtocolManager = null;
-		
+
 		try {
 			gdtProtocolManager = new GDTProtocolManager();
 		} catch (GDTException e2) {
@@ -113,7 +120,7 @@ public class GDTWritter {
 			e2.printStackTrace();
 			return;
 		}
-		
+
 		try {
 			is = new FileInputStream("C:\\Users\\gabriel\\git\\GDTProtocolManager\\xml\\input.xml");
 			os = new FileOutputStream("C:\\Users\\gabriel\\git\\GDTProtocolManager\\xml\\output.xml");
@@ -128,7 +135,7 @@ public class GDTWritter {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		if (is != null) {
 			try {
 				is.close();
@@ -137,7 +144,7 @@ public class GDTWritter {
 				e.printStackTrace();
 			}
 		}
-		if(os != null) {
+		if (os != null) {
 			try {
 				os.close();
 			} catch (IOException e) {
@@ -145,8 +152,7 @@ public class GDTWritter {
 				e.printStackTrace();
 			}
 		}
-		
-		
+
 	}
 
 }
